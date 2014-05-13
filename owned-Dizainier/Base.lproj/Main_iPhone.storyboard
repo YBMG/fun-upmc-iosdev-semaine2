@@ -83,7 +83,7 @@
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Fo-DM-XTm">
-                                <rect key="frame" x="99" y="436" width="122" height="41"/>
+                                <rect key="frame" x="99" y="419" width="122" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.75435207201086962" green="0.71616248893079804" blue="0.66011792046339002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
