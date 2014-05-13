@@ -14,36 +14,37 @@
 @implementation ViewController
 @synthesize number, modeGeek;
 
+
 - (void)setNumber:(int)num
 {
     number = MAX(0, MIN(99, num));
     [self updateNumberDisplay];
     [self updateSegs];
     
-    [[self stepper] setValue:number];
-    [[self slider] setValue: number];
+    self.stepper.value = number;
+    self.slider.value = number;
 }
 
 - (void)updateNumberDisplay
 {
-    NSString* format = modeGeek ? @"%x" : @"%d";
-    [[self numberDisplay] setText:[NSString stringWithFormat:format, number]];
+    NSString* format = self.modeGeek ? @"%x" : @"%d";
+    self.numberDisplay.text = [NSString stringWithFormat:format, self.number];
     
     // Special "chinoiserie"
-    [[self numberDisplay] setTextColor:(number == 42 ? [UIColor redColor] : [UIColor blackColor])];
+    self.numberDisplay.textColor = (self.number == 42 ? [UIColor redColor] : [UIColor blackColor]);
 }
 
 - (void)updateSegs
 {
-    int dizaines = MIN(number / 10, 10);
-    int unites = number % 10;
-    [[self dizainesSeg] setSelectedSegmentIndex:dizaines];
-    [[self unitesSeg] setSelectedSegmentIndex:unites];
+    int dizaines = MIN(self.number / 10, 10);
+    int unites = self.number % 10;
+    [self.dizainesSeg setSelectedSegmentIndex:dizaines];
+    [self.unitesSeg setSelectedSegmentIndex:unites];
 }
 
 - (void)updateNumberFromSegs
 {
-    [self setNumber:[[self dizainesSeg] selectedSegmentIndex] * 10 + [[self unitesSeg] selectedSegmentIndex]];
+    self.number = [self.dizainesSeg selectedSegmentIndex] * 10 + [self.unitesSeg selectedSegmentIndex];
 }
 
 - (void)reset
@@ -57,23 +58,23 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    modeGeek = NO;
-    [[self geekSwitch] setOn:modeGeek];
+    self.modeGeek = NO;
+    self.geekSwitch.on = self.modeGeek;
     
     // Init stepper
-    [[self stepper] setMinimumValue:0.0];
-    [[self stepper] setMaximumValue:99.0];
-    [[self stepper] setStepValue:1.0];
+    self.stepper.minimumValue = 0.0;
+    self.stepper.maximumValue = 99.0;
+    self.stepper.stepValue = 1.0;
     
     // Init slider
-    [[self slider] setMinimumValue:0.0];
-    [[self slider] setMaximumValue:99.0];
+    self.slider.minimumValue = 0.0;
+    self.slider.maximumValue = 99.0;
     
     // Init segmented control titles
-    for (int i = 0; i < [[self dizainesSeg] numberOfSegments]; i++) {
-        [[self dizainesSeg] setTitle:[NSString stringWithFormat:@"%d", i] forSegmentAtIndex:i];
+    for (int i = 0; i < self.dizainesSeg.numberOfSegments; i++) {
+        [self.dizainesSeg setTitle:[NSString stringWithFormat:@"%d", i] forSegmentAtIndex:i];
         // Assume that the segmented controls are the same size
-        [[self unitesSeg] setTitle:[NSString stringWithFormat:@"%d", i] forSegmentAtIndex:i];
+        [self.unitesSeg setTitle:[NSString stringWithFormat:@"%d", i] forSegmentAtIndex:i];
     }
     
     [self reset];
@@ -86,7 +87,7 @@
 }
 
 - (IBAction)stepperWasTapped:(id)sender {
-    [self setNumber:[[self stepper] value]];
+    self.number = self.stepper.value;
 }
 - (IBAction)dizainesSegWasTapped:(id)sender {
     [self updateNumberFromSegs];
@@ -95,14 +96,14 @@
     [self updateNumberFromSegs];
 }
 - (IBAction)sliderWasChanged:(id)sender {
-    [self setNumber:[[self slider] value]];
+    self.number = self.slider.value;
 }
 
 - (IBAction)resetWasTapped:(id)sender {
     [self reset];
 }
 - (IBAction)geekSwitchWasChanged:(id)sender {
-    modeGeek = [[self geekSwitch] isOn];
+    self.modeGeek = self.geekSwitch.on;
     [self updateNumberDisplay];
 }
 @end
