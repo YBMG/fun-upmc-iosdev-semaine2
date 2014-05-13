@@ -9,15 +9,74 @@
 #import "ViewController.h"
 
 @interface ViewController ()
-
 @end
 
 @implementation ViewController
+@synthesize number, modeGeek;
+
+- (void)setNumber:(int)num
+{
+    number = MAX(0, MIN(99, num));
+    [self updateNumberDisplay];
+    [self updateSegs];
+    
+    [[self stepper] setValue:number];
+    [[self slider] setValue: number];
+}
+
+- (void)updateNumberDisplay
+{
+    NSString* format = modeGeek ? @"%x" : @"%d";
+    [[self numberDisplay] setText:[NSString stringWithFormat:format, number]];
+    
+    // Special "chinoiserie"
+    [[self numberDisplay] setTextColor:(number == 42 ? [UIColor redColor] : [UIColor blackColor])];
+}
+
+- (void)updateSegs
+{
+    int dizaines = MIN(number / 10, 10);
+    int unites = number % 10;
+    [[self dizainesSeg] setSelectedSegmentIndex:dizaines];
+    [[self unitesSeg] setSelectedSegmentIndex:unites];
+}
+
+- (void)updateNumberFromSegs
+{
+    [self setNumber:[[self dizainesSeg] selectedSegmentIndex] * 10 + [[self unitesSeg] selectedSegmentIndex]];
+}
+
+- (void)reset
+{
+    [self setNumber:0];
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    modeGeek = NO;
+    [[self geekSwitch] setOn:modeGeek];
+    
+    // Init stepper
+    [[self stepper] setMinimumValue:0.0];
+    [[self stepper] setMaximumValue:99.0];
+    [[self stepper] setStepValue:1.0];
+    
+    // Init slider
+    [[self slider] setMinimumValue:0.0];
+    [[self slider] setMaximumValue:99.0];
+    
+    // Init segmented control titles
+    for (int i = 0; i < [[self dizainesSeg] numberOfSegments]; i++) {
+        [[self dizainesSeg] setTitle:[NSString stringWithFormat:@"%d", i] forSegmentAtIndex:i];
+        // Assume that the segmented controls are the same size
+        [[self unitesSeg] setTitle:[NSString stringWithFormat:@"%d", i] forSegmentAtIndex:i];
+    }
+    
+    [self reset];
 }
 
 - (void)didReceiveMemoryWarning
@@ -26,4 +85,24 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)stepperWasTapped:(id)sender {
+    [self setNumber:[[self stepper] value]];
+}
+- (IBAction)dizainesSegWasTapped:(id)sender {
+    [self updateNumberFromSegs];
+}
+- (IBAction)unitesSegWasTapped:(id)sender {
+    [self updateNumberFromSegs];
+}
+- (IBAction)sliderWasChanged:(id)sender {
+    [self setNumber:[[self slider] value]];
+}
+
+- (IBAction)resetWasTapped:(id)sender {
+    [self reset];
+}
+- (IBAction)geekSwitchWasChanged:(id)sender {
+    modeGeek = [[self geekSwitch] isOn];
+    [self updateNumberDisplay];
+}
 @end
