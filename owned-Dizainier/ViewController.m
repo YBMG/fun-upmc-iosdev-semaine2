@@ -38,13 +38,13 @@
 {
     int dizaines = MIN(self.number / 10, 10);
     int unites = self.number % 10;
-    [self.dizainesSeg setSelectedSegmentIndex:dizaines];
-    [self.unitesSeg setSelectedSegmentIndex:unites];
+    self.dizainesSeg.selectedSegmentIndex = dizaines;
+    self.unitesSeg.selectedSegmentIndex = unites;
 }
 
 - (void)updateNumberFromSegs
 {
-    self.number = [self.dizainesSeg selectedSegmentIndex] * 10 + [self.unitesSeg selectedSegmentIndex];
+    self.number = self.dizainesSeg.selectedSegmentIndex * 10 + self.unitesSeg.selectedSegmentIndex;
 }
 
 - (void)reset
