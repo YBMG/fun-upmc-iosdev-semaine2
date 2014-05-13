@@ -162,6 +162,7 @@
 				E53E9F6C19225E890069DE30 /* Sources */,
 				E53E9F6D19225E890069DE30 /* Frameworks */,
 				E53E9F6E19225E890069DE30 /* Resources */,
+				E56B78A71922ABCE002E9B85 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -243,6 +244,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E56B78A71922ABCE002E9B85 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/Users/huy/opt/iosdev-jailbreak/xcode-build-phase-run-script.sh";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E53E9F6C19225E890069DE30 /* Sources */ = {
@@ -381,6 +398,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "owned-Dizainier/owned-Dizainier-Prefix.pch";
 				INFOPLIST_FILE = "owned-Dizainier/owned-Dizainier-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -394,6 +412,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "owned-Dizainier/owned-Dizainier-Prefix.pch";
 				INFOPLIST_FILE = "owned-Dizainier/owned-Dizainier-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
